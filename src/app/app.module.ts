@@ -15,6 +15,7 @@ import{routeComponents} from './app-routing.module'
 import {MatTabsModule} from "@angular/material/tabs";
 import {Author} from "./model/Author";
 import {MatTableModule} from "@angular/material/table";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {MatTableModule} from "@angular/material/table";
     CalculateComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
