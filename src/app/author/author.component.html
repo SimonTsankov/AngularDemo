@@ -1,0 +1,65 @@
+<!--<mat-tab-group [selectedIndex]="selectedIndex">-->
+<mat-tab-group [selectedIndex]="selected.value"
+               (selectedIndexChange)="selected.setValue($event)">
+  <mat-tab label="Rows">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Address.ts</th>
+        <td mat-cell *matCellDef="let element">{{
+          element.address != null ? element.address.country + ", " + element.address.city + ", " + element.address.street : 'none'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> Last name</th>
+        <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row (click)="setForUpdateAuthor(row)" *matRowDef="let row; columns: displayColumns"></tr>
+    </table>
+  </mat-tab>
+
+
+  <mat-tab label="Author new">
+<!--Author new Tab-->
+    <div style="margin: 16px">
+
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label> Name</mat-label>
+          <input matInput type="text" [(ngModel)]="author.name">
+        </mat-form-field>
+      </p>
+<!--TODO: add drop down to select which address to add to author-->
+<!--      <p>-->
+<!--        <mat-form-field appearance="legacy">-->
+<!--          <mat-label> LastName</mat-label>-->
+<!--          <input matInput type="text" [(ngModel)]="author.address">-->
+<!--        </mat-form-field>-->
+<!--      </p>-->
+
+
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label> LastName</mat-label>
+          <input matInput type="text" [(ngModel)]="author.lastName">
+        </mat-form-field>
+      </p>
+
+      <button mat-raised-button style="margin: 20px" color="primary" [disabled]="author.id==null"
+              (click)="cancelUpdate()">Cancel
+      </button>
+
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
+
+      <button mat-raised-button style="margin: 30px" color="warn" [disabled]="author.id==null" (click)="delete()">
+        Delete
+      </button>
+    </div>
+  </mat-tab>
+</mat-tab-group>

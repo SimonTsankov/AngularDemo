@@ -1,0 +1,82 @@
+<mat-tab-group [selectedIndex]="selected.value"
+(selectedIndexChange)="selected.setValue($event)">
+<mat-tab label="Book rows">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+
+    <ng-container matColumnDef = "name">
+        <th mat-header-cell *matHeaderCellDef>name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef = "genre">
+        <th mat-header-cell *matHeaderCellDef>genre</th>
+        <td mat-cell *matCellDef="let element"> {{element.genre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef = "price">
+        <th mat-header-cell *matHeaderCellDef>price</th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef = "author">
+        <th mat-header-cell *matHeaderCellDef>author</th>
+        <td mat-cell *matCellDef="let element"> {{element.author!==null ? element.name +" "+element.lastName : 'none'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row
+    (click)="setForUpdateBook(row)"
+    *matRowDef="let row; columns: displayColumns;"></tr>
+</table>
+</mat-tab>
+
+<mat-tab [label]="book.id==null? 'New Book': 'Editing Book'">
+
+
+<div style = "margin: 16px">
+
+<p>
+    <mat-form-field appearance="fill">
+        <mat-label>Book name</mat-label>
+        <input matInput type = "text" [(ngModel)]="book.name">
+    </mat-form-field>
+
+</p>
+
+<p>
+    <mat-form-field appearance="fill">
+        <mat-label>genre</mat-label>
+        <input matInput type = "text" [(ngModel)]="book.genre">
+    </mat-form-field>
+</p>
+
+<p>
+    <mat-form-field appearance="fill">
+        <mat-label>price</mat-label>
+        <input matInput type = "text" [(ngModel)]="book.price">
+    </mat-form-field>
+</p>
+
+<h4>Author</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Author</mat-label>
+    <mat-select [(ngModel)]="selectedAuthor">
+      <mat-option value=0>None</mat-option>
+      <mat-option *ngFor="let author of authorDataSource" [value]="author.id">{{author.name +" "+author.lastName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+<p>
+    <button mat-raised-button style="margin: 20px" color="primary" [disabled]="book.id==null"
+    (click)="cancelUpdate()">Cancel</button>
+
+    <button mat-raised-button style="margin: 20px" color="primary" (click)="save()">Save</button>
+
+    <button mat-raised-button color="warn" [disabled]="book.id==null"
+    (click)="delete()">Delete</button>
+</p>
+</div>
+</mat-tab>
+</mat-tab-group>

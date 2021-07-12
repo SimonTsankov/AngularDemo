@@ -16,6 +16,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {Author} from "./model/Author";
 import {MatTableModule} from "@angular/material/table";
 import {HttpClientModule} from "@angular/common/http";
+import {MatSelectModule} from "@angular/material/select";
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import {HttpClientModule} from "@angular/common/http";
     AuthorComponent,
     AppComponent,
     CalculateComponent,
+    AddressComponent,
   ],
   imports: [
     HttpClientModule,
@@ -36,7 +39,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatInputModule,
     MatButtonModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
