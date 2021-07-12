@@ -13,6 +13,8 @@ import {Author} from "../model/Author";
 })
 export class BookComponent implements OnInit {
 
+  selectedAuthor?: number = 0;
+  authorDataSource: any;
   //@ts-ignore
   authorId;
   //@ts-ignore
@@ -21,6 +23,9 @@ export class BookComponent implements OnInit {
   dataSource;
   selected = new FormControl(0);
   displayColumns: string[] = ["name", "genre", "price", "author"]
+  searchedWord: any;
+  columns: string[] = [ "genre", "author"];
+  selectedColumnSearch: any;
 
   constructor(private bookService: BookService, private authorService: AuthorService) {
     this.book = new Book();
@@ -34,8 +39,6 @@ export class BookComponent implements OnInit {
     this.refreshGrid();
   }
 
-  selectedAuthor?: number=0;
-  authorDataSource: any;
 
   refreshGrid() {
     this.bookService.getBook().subscribe(data => {
@@ -98,4 +101,26 @@ export class BookComponent implements OnInit {
     this.selected.setValue(0);
   }
 
+  async search() {
+    switch (this.selectedColumnSearch) {
+      case "name":
+        this.bookService.getBooksByName(this.searchedWord).subscribe(data => {
+          this.dataSource = data;
+        })
+        break;
+      case "author":
+        this.bookService.getBookByAuthor(this.searchedWord).subscribe(data => {
+          this.dataSource = data;
+        })
+        break;
+
+      case "genre":
+        console.log("here")
+        this.bookService.getBookByGenre(this.searchedWord).subscribe(data => {
+          this.dataSource = data;
+        })
+        break;
+    }
+    console.log(this.selectedColumnSearch)
+  }
 }

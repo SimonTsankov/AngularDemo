@@ -1,0 +1,14 @@
+.search{
+  min-width: 150px;
+  max-width: 350px;
+  width: 80%;
+}
+.search_button{
+  vertical-align: center;
+  background-color: blueviolet;
+}
+
+.search_drop_box{
+  margin-right: 30px;
+  margin-left: 10px;
+}
